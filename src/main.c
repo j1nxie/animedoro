@@ -1,4 +1,6 @@
 #include "../deps/raygui.h"
+#include "../include/clock_screen.h"
+#include "../include/config.h"
 #include <raylib.h>
 
 int main(void) {
@@ -9,10 +11,12 @@ int main(void) {
 
     SetTargetFPS(60);
 
+    AppState app_state = (AppState){25, 0, 4};
+
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("hello, world!", 190, 200, 20, LIGHTGRAY);
+        ClockScreen(&app_state);
         EndDrawing();
     }
 

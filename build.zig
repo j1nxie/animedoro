@@ -33,7 +33,8 @@ pub fn build(b: *std.Build) void {
     exe.force_pic = true;
     exe.linkSystemLibrary("raylib");
     exe.linkLibrary(raygui);
-    exe.addCSourceFiles(.{ .files = &.{"src/main.c"}, .flags = &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" } });
+    exe.addIncludePath(.{ .path = "include" });
+    exe.addCSourceFiles(.{ .files = &.{ "src/main.c", "src/clock_screen.c", "src/config.c" }, .flags = &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" } });
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
