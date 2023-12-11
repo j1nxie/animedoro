@@ -1,4 +1,4 @@
-#include "../include/config.h"
+#include "../include/app_state.h"
 #include <math.h>
 #include <raylib.h>
 #include <stdio.h>

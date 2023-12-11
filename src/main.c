@@ -1,6 +1,6 @@
 #include "../deps/raygui.h"
+#include "../include/app_state.h"
 #include "../include/clock_screen.h"
-#include "../include/config.h"
 #include <raylib.h>
 
 int main(void) {
