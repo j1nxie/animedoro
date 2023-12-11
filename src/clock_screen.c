@@ -24,7 +24,7 @@ void ClockScreen(AppState *app_state) {
     }
 
     const char *string = TextFormat("%s:%s", minutes, seconds);
-    Vector2 size = MeasureTextEx(GetFontDefault(), string, 20, 20 / 10);
+    Vector2 size = MeasureTextEx(GetFontDefault(), "00:00", 40, 40 / 10);
     Vector2 text_pos = (Vector2){GetScreenWidth() / 2 - size.x / 2,
                                  GetScreenHeight() / 2 - size.y / 2};
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, BLUE);
