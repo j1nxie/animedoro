@@ -11,7 +11,7 @@ int main(void) {
 
     SetTargetFPS(60);
 
-    AppState app_state = (AppState){25, 0, 4};
+    AppState app_state = initialize_app(25, 0, 4);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
