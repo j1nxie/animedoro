@@ -10,18 +10,12 @@ void ClockScreen(AppState *app_state) {
         app_state->seconds = 60;
         app_state->minutes--;
     }
-    const char *minutes, *seconds;
-    if (app_state->minutes < 10) {
-        minutes = TextFormat("0%d", (int)app_state->minutes);
-    } else {
-        minutes = TextFormat("%d", (int)app_state->minutes);
-    }
 
-    if (app_state->seconds < 10) {
-        seconds = TextFormat("0%d", (int)app_state->seconds);
-    } else {
-        seconds = TextFormat("%d", (int)app_state->seconds);
-    }
+    const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
+                                     (int)app_state->minutes);
+
+    const char *seconds = TextFormat((app_state->seconds < 10 ? "0%d" : "%d"),
+                                     (int)app_state->seconds);
 
     const char *string = TextFormat("%s:%s", minutes, seconds);
     Vector2 size = MeasureTextEx(GetFontDefault(), "00:00", 40, 40 / 10);
