@@ -16,8 +16,8 @@ fn clockScreen(allocator: std.mem.Allocator) anyerror!void {
         appState.minutes = appState.minutes - 1;
     }
 
-    const minutes = try std.fmt.allocPrint(allocator, "{d}", .{@as(u32, @intFromFloat(appState.minutes))});
-    const seconds = try std.fmt.allocPrint(allocator, "{d}", .{@as(u32, @intFromFloat(appState.seconds))});
+    const minutes = try std.fmt.allocPrint(allocator, "{d:0>2}", .{@as(u32, @intFromFloat(appState.minutes))});
+    const seconds = try std.fmt.allocPrint(allocator, "{d:0>2}", .{@as(u32, @intFromFloat(appState.seconds))});
     const size = rl.measureTextEx(rl.getFontDefault(), "00:00", 40, 40 / 10);
     const text_pos = rl.Vector2{
         .x = @as(f32, @floatFromInt(@divTrunc(rl.getScreenWidth(), 2))) - @divTrunc(size.x, 2),
