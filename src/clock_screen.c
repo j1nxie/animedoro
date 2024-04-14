@@ -1,14 +1,13 @@
 #include "../include/app_state.h"
-#include <math.h>
 #include <raylib.h>
-#include <stdio.h>
-#include <time.h>
 
 void ClockScreen(AppState *app_state) {
-    app_state->seconds -= GetFrameTime();
-    if (app_state->seconds <= 0) {
-        app_state->seconds = 60;
-        app_state->minutes--;
+    if (app_state->running) {
+        app_state->seconds -= GetFrameTime();
+        if (app_state->seconds <= 0) {
+            app_state->seconds = 60;
+            app_state->minutes--;
+        }
     }
 
     const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
