@@ -22,7 +22,7 @@ pub fn build(b: *std.Build) void {
     });
     raygui.linkLibC();
     raygui.force_pic = true;
-    raygui.addCSourceFiles(.{ .files = &.{"deps/raygui.c"}, .flags = &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" } });
+    raygui.addCSourceFiles(&.{"deps/raygui.c"}, &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" });
 
     const exe = b.addExecutable(.{
         .name = "animedoro",
@@ -34,11 +34,11 @@ pub fn build(b: *std.Build) void {
     exe.linkSystemLibrary("raylib");
     exe.linkLibrary(raygui);
     exe.addIncludePath(.{ .path = "include" });
-    exe.addCSourceFiles(.{ .files = &.{
+    exe.addCSourceFiles(&.{
         "src/main.c",
         "src/app_state.c",
         "src/clock_screen.c",
-    }, .flags = &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" } });
+    }, &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" });
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
