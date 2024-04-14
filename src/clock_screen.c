@@ -22,6 +22,21 @@ void ClockScreen(AppState *app_state) {
             app_state->minutes--;
         }
 
+        if (app_state->minutes == 0) {
+            switch (app_state->state) {
+            case (POMODORO):
+                app_state->minutes = 25;
+                break;
+            case (SHORT_BREAK):
+                app_state->minutes = 5;
+                break;
+            case (LONG_BREAK):
+                app_state->minutes = 15;
+                break;
+            }
+            app_state->running = false;
+        }
+
         SetWindowTitle(
             TextFormat("clock running :3 - time remaining: %s", string));
     } else {
