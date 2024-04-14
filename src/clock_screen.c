@@ -2,14 +2,6 @@
 #include <raylib.h>
 
 void ClockScreen(AppState *app_state) {
-    if (app_state->running) {
-        app_state->seconds -= GetFrameTime();
-        if (app_state->seconds <= 0) {
-            app_state->seconds = 60;
-            app_state->minutes--;
-        }
-    }
-
     const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
                                      (int)app_state->minutes);
 
@@ -17,8 +9,34 @@ void ClockScreen(AppState *app_state) {
                                      (int)app_state->seconds);
 
     const char *string = TextFormat("%s:%s", minutes, seconds);
+    const char *status;
     Vector2 size = MeasureTextEx(GetFontDefault(), "00:00", 40, 40 / 10);
     Vector2 text_pos = (Vector2){GetScreenWidth() / 2 - size.x / 2,
                                  GetScreenHeight() / 2 - size.y / 2};
+
+    if (app_state->running) {
+        status = "pause";
+        app_state->seconds -= GetFrameTime();
+        if (app_state->seconds <= 0) {
+            app_state->seconds = 60;
+            app_state->minutes--;
+        }
+
+        SetWindowTitle(
+            TextFormat("clock running :3 - time remaining: %s", string));
+    } else {
+        status = "start";
+        SetWindowTitle(
+            TextFormat("clock paused >:c - time remaining: %s", string));
+    }
+
+    // FIXME: placeholder for proper buttons
+    Vector2 status_size = MeasureTextEx(GetFontDefault(), status, 40, 40 / 10);
+    Vector2 status_text_pos =
+        (Vector2){GetScreenWidth() / 2 - status_size.x / 2,
+                  GetScreenHeight() / 2 - status_size.y / 2};
+
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, BLUE);
+    DrawText(status, (int)status_text_pos.x, (int)status_text_pos.y + 80, 40,
+             BLUE);
 }
