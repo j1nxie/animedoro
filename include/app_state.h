@@ -3,7 +3,11 @@
 
 #include <stdbool.h>
 
-typedef enum { POMODORO, SHORT_BREAK, LONG_BREAK } PomodoroState;
+typedef enum {
+    POMODORO_CLOCK,
+    POMODORO_SHORT_BREAK,
+    POMODORO_LONG_BREAK
+} PomodoroState;
 
 typedef struct {
     double minutes;

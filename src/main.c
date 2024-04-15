@@ -11,7 +11,7 @@ int main(void) {
 
     SetTargetFPS(60);
 
-    AppState app_state = initialize_app(25, 0, 4, false, POMODORO);
+    AppState app_state = initialize_app(25, 0, 4, false, POMODORO_CLOCK);
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_SPACE)) {
