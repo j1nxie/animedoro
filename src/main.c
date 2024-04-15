@@ -11,7 +11,8 @@ int main(void) {
 
     SetTargetFPS(60);
 
-    AppState app_state = initialize_app(25, 0, 4, false, POMODORO_CLOCK);
+    AppConfig app_config = (AppConfig){25, 5, 15};
+    AppState app_state = initialize_app(&app_config);
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_SPACE)) {
@@ -19,7 +20,7 @@ int main(void) {
         }
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        ClockScreen(&app_state);
+        ClockScreen(&app_state, &app_config);
         EndDrawing();
     }
 

@@ -3,6 +3,6 @@
 
 #include "app_state.h"
 
-void ClockScreen(AppState *app_state);
+void ClockScreen(AppState *app_state, AppConfig *app_config);
 
 #endif

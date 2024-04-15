@@ -17,7 +17,12 @@ typedef struct {
     PomodoroState state;
 } AppState;
 
-AppState initialize_app(int minutes, int seconds, int pomodoros, bool running,
-                        PomodoroState state);
+typedef struct {
+    double pomodoro_length;
+    double short_break_length;
+    double long_break_length;
+} AppConfig;
+
+AppState initialize_app(AppConfig *app_config);
 
 #endif

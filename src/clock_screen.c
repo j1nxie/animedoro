@@ -1,7 +1,7 @@
 #include "../include/app_state.h"
 #include <raylib.h>
 
-void ClockScreen(AppState *app_state) {
+void ClockScreen(AppState *app_state, AppConfig *app_config) {
     const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
                                      (int)app_state->minutes);
 
@@ -24,14 +24,14 @@ void ClockScreen(AppState *app_state) {
 
         if (app_state->minutes == 0) {
             switch (app_state->state) {
-            case (POMODORO):
-                app_state->minutes = 25;
+            case (POMODORO_CLOCK):
+                app_state->minutes = app_config->pomodoro_length;
                 break;
-            case (SHORT_BREAK):
-                app_state->minutes = 5;
+            case (POMODORO_SHORT_BREAK):
+                app_state->minutes = app_config->short_break_length;
                 break;
-            case (LONG_BREAK):
-                app_state->minutes = 15;
+            case (POMODORO_LONG_BREAK):
+                app_state->minutes = app_config->long_break_length;
                 break;
             }
             app_state->running = false;
