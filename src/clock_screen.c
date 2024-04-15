@@ -2,6 +2,9 @@
 #include <raylib.h>
 
 void ClockScreen(AppState *app_state, AppConfig *app_config) {
+    if (IsKeyPressed(KEY_SPACE)) {
+        app_state->running = !app_state->running;
+    }
     const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
                                      (int)app_state->minutes);
 
