@@ -1,5 +1,5 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef APP_STATE_H
+#define APP_STATE_H
 
 #include <stdbool.h>
 
