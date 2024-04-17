@@ -67,8 +67,9 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
     const char *string = TextFormat("%s:%s", minutes, seconds);
     const char *status;
     Vector2 size = MeasureTextEx(GetFontDefault(), string, 40, 40.0f / 10.0f);
-    Vector2 text_pos = (Vector2){GetScreenWidth() / 2.0f - size.x / 2.0f,
-                                 GetScreenHeight() / 2.0f - size.y / 2.0f};
+    Vector2 text_pos =
+        (Vector2){GetScreenWidth() / 2.0f - size.x / 2.0f,
+                  GetScreenHeight() / 2.0f - size.y / 2.0f - 16.0f};
 
     if (app_state->running) {
         app_state->seconds -= GetFrameTime();
@@ -83,7 +84,8 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
         }
 
         if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 32.0f,
-                                  GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+                                  GetScreenHeight() / 2.0f + 45.0f - 16.0f, 32,
+                                  32},
                       GuiIconText(ICON_PLAYER_PAUSE, ""))) {
             app_state->running = !app_state->running;
         }
@@ -92,7 +94,8 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             TextFormat("clock running :3 - time remaining: %s", string));
     } else {
         if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 32.0f,
-                                  GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+                                  GetScreenHeight() / 2.0f + 45.0f - 16.0f, 32,
+                                  32},
                       GuiIconText(ICON_PLAYER_PLAY, ""))) {
             app_state->running = !app_state->running;
         }
@@ -103,7 +106,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
 
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, BLUE);
     if (GuiButton((Rectangle){GetScreenWidth() / 2.0f,
-                              GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+                              GetScreenHeight() / 2.0f + 45.0f - 16.0f, 32, 32},
                   GuiIconText(ICON_PLAYER_NEXT, ""))) {
         NextState(app_state, app_config);
         app_state->running = false;
