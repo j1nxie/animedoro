@@ -1,3 +1,4 @@
+#include "../deps/raygui.h"
 #include "../include/app_state.h"
 #include <raylib.h>
 
@@ -19,7 +20,6 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
                                  GetScreenHeight() / 2.0f - size.y / 2.0f};
 
     if (app_state->running) {
-        status = "pause";
         app_state->seconds -= GetFrameTime();
         if (app_state->seconds <= 0) {
             app_state->seconds = 60;
@@ -40,23 +40,27 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             }
             app_state->running = false;
         }
+        if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 45.0f,
+                                  GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+                      GuiIconText(ICON_PLAYER_PAUSE, ""))) {
+            app_state->running = !app_state->running;
+        }
 
         SetWindowTitle(
             TextFormat("clock running :3 - time remaining: %s", string));
     } else {
-        status = "start";
+        if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 45.0f,
+                                  GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+                      GuiIconText(ICON_PLAYER_PLAY, ""))) {
+            app_state->running = !app_state->running;
+        }
+
         SetWindowTitle(
             TextFormat("clock paused >:c - time remaining: %s", string));
     }
 
-    // FIXME: placeholder for proper buttons
-    Vector2 status_size =
-        MeasureTextEx(GetFontDefault(), status, 40, 40.0f / 10.0f);
-    Vector2 status_text_pos =
-        (Vector2){GetScreenWidth() / 2.0f - status_size.x / 2.0f,
-                  GetScreenHeight() / 2.0f - status_size.y / 2.0f};
-
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, BLUE);
-    DrawText(status, (int)status_text_pos.x, (int)status_text_pos.y + 80, 40,
-             BLUE);
+    GuiButton((Rectangle){GetScreenWidth() / 2.0f + 7.0f,
+                          GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+              GuiIconText(ICON_PLAYER_NEXT, ""));
 }
