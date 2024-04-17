@@ -10,7 +10,7 @@ void NextState(AppState *app_state, AppConfig *app_config) {
             app_state->state = POMODORO_SHORT_BREAK;
             app_state->minutes = app_config->short_break_length;
         } else {
-            app_state->pomodoros = 4;
+            app_state->pomodoros = 3;
             app_state->state = POMODORO_LONG_BREAK;
             app_state->minutes = app_config->long_break_length;
         }
