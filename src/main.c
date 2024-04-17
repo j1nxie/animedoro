@@ -15,9 +15,6 @@ int main(void) {
     AppState app_state = initialize_app(&app_config);
 
     while (!WindowShouldClose()) {
-        if (IsKeyPressed(KEY_SPACE)) {
-            app_state.running = !app_state.running;
-        }
         BeginDrawing();
         ClearBackground(RAYWHITE);
         ClockScreen(&app_state, &app_config);
