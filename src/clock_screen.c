@@ -21,7 +21,7 @@ void NextState(AppState *app_state, AppConfig *app_config) {
         app_state->minutes = app_config->pomodoro_length;
         break;
     }
-    app_state->seconds = 0;
+    app_state->seconds = 0.0f;
 }
 
 void ClockScreen(AppState *app_state, AppConfig *app_config) {
@@ -43,15 +43,16 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
 
     if (app_state->running) {
         app_state->seconds -= GetFrameTime();
-        if (app_state->seconds <= 0) {
+        if (app_state->seconds <= 0.0f) {
             app_state->seconds = 60;
-            app_state->minutes--;
+            if (app_state->minutes > 0) {
+                app_state->minutes--;
+            } else if (app_state->minutes == 0) {
+                NextState(app_state, app_config);
+                app_state->running = false;
+            }
         }
 
-        if (app_state->minutes == 0.0f && app_state->seconds == 0.0f) {
-            NextState(app_state, app_config);
-            app_state->running = false;
-        }
         if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 32.0f,
                                   GetScreenHeight() / 2.0f + 45.0f, 32, 32},
                       GuiIconText(ICON_PLAYER_PAUSE, ""))) {
