@@ -2,6 +2,51 @@
 #include "../include/app_state.h"
 #include <raylib.h>
 
+void CheckState(AppState *app_state, AppConfig *app_config) {
+    switch (app_state->state) {
+    case (POMODORO_CLOCK):
+        app_state->minutes = app_config->pomodoro_length;
+        if (app_state->pomodoros > 0) {
+            app_state->pomodoros--;
+            app_state->state = POMODORO_SHORT_BREAK;
+        } else {
+            app_state->pomodoros = 4;
+            app_state->state = POMODORO_LONG_BREAK;
+        }
+        break;
+    case (POMODORO_SHORT_BREAK):
+        app_state->minutes = app_config->short_break_length;
+        app_state->state = POMODORO_CLOCK;
+        break;
+    case (POMODORO_LONG_BREAK):
+        app_state->minutes = app_config->long_break_length;
+        app_state->state = POMODORO_CLOCK;
+        break;
+    }
+}
+
+void SkipState(AppState *app_state, AppConfig *app_config) {
+    switch (app_state->state) {
+    case (POMODORO_CLOCK):
+        if (app_state->pomodoros > 0) {
+            app_state->pomodoros--;
+            app_state->state = POMODORO_SHORT_BREAK;
+            app_state->minutes = app_config->short_break_length;
+        } else {
+            app_state->pomodoros = 4;
+            app_state->state = POMODORO_LONG_BREAK;
+            app_state->minutes = app_config->long_break_length;
+        }
+        break;
+    case (POMODORO_SHORT_BREAK):
+    case (POMODORO_LONG_BREAK):
+        app_state->state = POMODORO_CLOCK;
+        app_state->minutes = app_config->pomodoro_length;
+        break;
+    }
+    app_state->seconds = 0;
+}
+
 void ClockScreen(AppState *app_state, AppConfig *app_config) {
     if (IsKeyPressed(KEY_SPACE)) {
         app_state->running = !app_state->running;
@@ -27,17 +72,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
         }
 
         if (app_state->minutes == 0) {
-            switch (app_state->state) {
-            case (POMODORO_CLOCK):
-                app_state->minutes = app_config->pomodoro_length;
-                break;
-            case (POMODORO_SHORT_BREAK):
-                app_state->minutes = app_config->short_break_length;
-                break;
-            case (POMODORO_LONG_BREAK):
-                app_state->minutes = app_config->long_break_length;
-                break;
-            }
+            CheckState(app_state, app_config);
             app_state->running = false;
         }
         if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 45.0f,
@@ -60,7 +95,10 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
     }
 
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, BLUE);
-    GuiButton((Rectangle){GetScreenWidth() / 2.0f + 7.0f,
-                          GetScreenHeight() / 2.0f + 45.0f, 32, 32},
-              GuiIconText(ICON_PLAYER_NEXT, ""));
+    if (GuiButton((Rectangle){GetScreenWidth() / 2.0f + 7.0f,
+                              GetScreenHeight() / 2.0f + 45.0f, 32, 32},
+                  GuiIconText(ICON_PLAYER_NEXT, ""))) {
+        SkipState(app_state, app_config);
+        app_state->running = false;
+    }
 }
