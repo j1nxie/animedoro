@@ -48,7 +48,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             app_state->minutes--;
         }
 
-        if (app_state->minutes == 0) {
+        if (app_state->minutes == 0.0f && app_state->seconds == 0.0f) {
             NextState(app_state, app_config);
             app_state->running = false;
         }
