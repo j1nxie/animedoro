@@ -5,6 +5,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
     if (IsKeyPressed(KEY_SPACE)) {
         app_state->running = !app_state->running;
     }
+
     const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
                                      (int)app_state->minutes);
 
@@ -13,9 +14,9 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
 
     const char *string = TextFormat("%s:%s", minutes, seconds);
     const char *status;
-    Vector2 size = MeasureTextEx(GetFontDefault(), "00:00", 40, 40 / 10);
-    Vector2 text_pos = (Vector2){GetScreenWidth() / 2 - size.x / 2,
-                                 GetScreenHeight() / 2 - size.y / 2};
+    Vector2 size = MeasureTextEx(GetFontDefault(), "00:00", 40, 40.0f / 10.0f);
+    Vector2 text_pos = (Vector2){GetScreenWidth() / 2.0f - size.x / 2.0f,
+                                 GetScreenHeight() / 2.0f - size.y / 2.0f};
 
     if (app_state->running) {
         status = "pause";
@@ -49,10 +50,11 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
     }
 
     // FIXME: placeholder for proper buttons
-    Vector2 status_size = MeasureTextEx(GetFontDefault(), status, 40, 40 / 10);
+    Vector2 status_size =
+        MeasureTextEx(GetFontDefault(), status, 40, 40.0f / 10.0f);
     Vector2 status_text_pos =
-        (Vector2){GetScreenWidth() / 2 - status_size.x / 2,
-                  GetScreenHeight() / 2 - status_size.y / 2};
+        (Vector2){GetScreenWidth() / 2.0f - status_size.x / 2.0f,
+                  GetScreenHeight() / 2.0f - status_size.y / 2.0f};
 
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, BLUE);
     DrawText(status, (int)status_text_pos.x, (int)status_text_pos.y + 80, 40,
