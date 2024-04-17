@@ -25,6 +25,35 @@ void NextState(AppState *app_state, AppConfig *app_config) {
 }
 
 void ClockScreen(AppState *app_state, AppConfig *app_config) {
+    float time = app_state->minutes * 60 + app_state->seconds;
+    switch (app_state->state) {
+    case (POMODORO_CLOCK):
+        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
+                      CLITERAL(Color){246, 126, 125, 255});
+        DrawRectangle(0, 0,
+                      GetScreenWidth() *
+                          (1.0f - (time / (app_config->pomodoro_length * 60))),
+                      GetScreenHeight(), CLITERAL(Color){179, 255, 179, 255});
+        break;
+    case (POMODORO_SHORT_BREAK):
+        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
+                      CLITERAL(Color){179, 255, 179, 255});
+        DrawRectangle(
+            0, 0,
+            GetScreenWidth() *
+                (1.0f - (time / (app_config->short_break_length * 60))),
+            GetScreenHeight(), CLITERAL(Color){246, 126, 125, 255});
+        break;
+    case (POMODORO_LONG_BREAK):
+        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
+                      CLITERAL(Color){179, 255, 179, 255});
+        DrawRectangle(
+            0, 0,
+            GetScreenWidth() *
+                (1.0f - (time / (app_config->long_break_length * 60))),
+            GetScreenHeight(), CLITERAL(Color){246, 126, 125, 255});
+        break;
+    }
     if (IsKeyPressed(KEY_SPACE)) {
         app_state->running = !app_state->running;
     }
