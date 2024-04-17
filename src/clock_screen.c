@@ -15,7 +15,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
 
     const char *string = TextFormat("%s:%s", minutes, seconds);
     const char *status;
-    Vector2 size = MeasureTextEx(GetFontDefault(), "00:00", 40, 40.0f / 10.0f);
+    Vector2 size = MeasureTextEx(GetFontDefault(), string, 40, 40.0f / 10.0f);
     Vector2 text_pos = (Vector2){GetScreenWidth() / 2.0f - size.x / 2.0f,
                                  GetScreenHeight() / 2.0f - size.y / 2.0f};
 
