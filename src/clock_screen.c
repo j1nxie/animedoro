@@ -24,6 +24,8 @@ void NextState(AppState *app_state, AppConfig *app_config) {
     app_state->seconds = 0.0f;
 }
 
+// FIXME: the string for the current time is allocated twice, once here and once
+// in ClockScreen(). would be really nice if the string is deduplicated somehow.
 void TickClock(AppState *app_state, AppConfig *app_config) {
     const char *string = TextFormat("%02i:%02i", (int)app_state->minutes,
                                     (int)app_state->seconds);
