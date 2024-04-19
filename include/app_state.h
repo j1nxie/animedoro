@@ -1,5 +1,5 @@
-#ifndef APP_STATE_H
-#define APP_STATE_H
+#ifndef APP_STATE_H_
+#define APP_STATE_H_
 
 #include <stdbool.h>
 

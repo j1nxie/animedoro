@@ -1,5 +1,5 @@
-#ifndef CLOCK_SCREEN_H
-#define CLOCK_SCREEN_H
+#ifndef CLOCK_SCREEN_H_
+#define CLOCK_SCREEN_H_
 
 #include "app_state.h"
 
