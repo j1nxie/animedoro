@@ -1,11 +1,12 @@
 #include "../deps/raygui.h"
 #include "../include/app_state.h"
 #include "../include/clock_screen.h"
+#include "../include/settings_screen.h"
 #include <raylib.h>
 
 int main(void) {
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 400;
+    const int screenHeight = 225;
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "animedoro - v0.1.0");
@@ -20,7 +21,15 @@ int main(void) {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        ClockScreen(&app_state, &app_config);
+        switch (app_state.current_screen) {
+            case (CLOCK_SCREEN):
+                ClockScreen(&app_state, &app_config);
+                break;
+            case (SETTINGS_SCREEN):
+                TickClock(&app_state, &app_config);
+                SettingsScreen(&app_state, &app_config);
+                break;
+        }
         EndDrawing();
     }
 

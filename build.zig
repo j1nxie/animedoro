@@ -38,6 +38,7 @@ pub fn build(b: *std.Build) void {
         "src/main.c",
         "src/app_state.c",
         "src/clock_screen.c",
+        "src/settings_screen.c",
     }, &.{ "-std=c11", "-pedantic", "-Wall", "-W", "-Wno-missing-field-initializers" });
 
     // This declares intent for the executable to be installed into the
