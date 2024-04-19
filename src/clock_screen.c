@@ -59,13 +59,8 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
         app_state->running = !app_state->running;
     }
 
-    const char *minutes = TextFormat((app_state->minutes < 10 ? "0%d" : "%d"),
-                                     (int)app_state->minutes);
-
-    const char *seconds = TextFormat((app_state->seconds < 10 ? "0%d" : "%d"),
-                                     (int)app_state->seconds);
-
-    const char *string = TextFormat("%s:%s", minutes, seconds);
+    const char *string = TextFormat("%02i:%02i", (int)app_state->minutes,
+                                    (int)app_state->seconds);
     Vector2 size = MeasureTextEx(GetFontDefault(), string, 40, 40.0f / 10.0f);
     Vector2 text_pos =
         (Vector2){GetScreenWidth() / 2.0f - size.x / 2.0f,
