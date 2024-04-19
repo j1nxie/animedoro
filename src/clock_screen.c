@@ -38,7 +38,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             break;
         case (POMODORO_SHORT_BREAK):
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
-                          CLITERAL(Color){179, 255, 179, 255});
+                          CLITERAL(Color){139, 209, 139, 255});
             DrawRectangle(
                 0, 0,
                 GetScreenWidth() *
@@ -47,7 +47,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             break;
         case (POMODORO_LONG_BREAK):
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(),
-                          CLITERAL(Color){179, 255, 179, 255});
+                          CLITERAL(Color){139, 209, 139, 255});
             DrawRectangle(
                 0, 0,
                 GetScreenWidth() *
