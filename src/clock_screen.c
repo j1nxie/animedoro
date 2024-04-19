@@ -25,6 +25,7 @@ void NextState(AppState *app_state, AppConfig *app_config) {
 }
 
 void ClockScreen(AppState *app_state, AppConfig *app_config) {
+    // drawing a proress bar-esque background
     float time = app_state->minutes * 60 + app_state->seconds;
     switch (app_state->state) {
         case (POMODORO_CLOCK):
@@ -55,6 +56,7 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
                 GetScreenHeight(), CLITERAL(Color){246, 126, 125, 255});
             break;
     }
+
     if (IsKeyPressed(KEY_SPACE)) {
         app_state->running = !app_state->running;
     }
@@ -85,8 +87,15 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             app_state->running = !app_state->running;
         }
 
-        SetWindowTitle(
-            TextFormat("clock running :3 - time remaining: %s", string));
+        switch (app_state->state) {
+            case (POMODORO_CLOCK):
+                SetWindowTitle(TextFormat("%s - clock running :3", string));
+                break;
+            case (POMODORO_SHORT_BREAK):
+            case (POMODORO_LONG_BREAK):
+                SetWindowTitle(TextFormat("%s - break time!!", string));
+                break;
+        }
     } else {
         if (GuiButton((Rectangle){GetScreenWidth() / 2.0f - 32.0f,
                                   GetScreenHeight() / 2.0f + 45.0f - 16.0f, 32,
@@ -95,11 +104,20 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
             app_state->running = !app_state->running;
         }
 
-        SetWindowTitle(
-            TextFormat("clock paused >:c - time remaining: %s", string));
+        switch (app_state->state) {
+            case (POMODORO_CLOCK):
+                SetWindowTitle(TextFormat("%s - clock paused >:c", string));
+                break;
+            case (POMODORO_SHORT_BREAK):
+            case (POMODORO_LONG_BREAK):
+                SetWindowTitle(TextFormat("%s - break paused...?", string));
+                break;
+        }
     }
 
     DrawText(string, (int)text_pos.x, (int)text_pos.y, 40, WHITE);
+
+    // skip button
     if (GuiButton((Rectangle){GetScreenWidth() / 2.0f,
                               GetScreenHeight() / 2.0f + 45.0f - 16.0f, 32, 32},
                   GuiIconText(ICON_PLAYER_NEXT, ""))) {
