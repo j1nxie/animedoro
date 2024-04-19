@@ -8,4 +8,6 @@ void SettingsScreen(AppState *app_state, AppConfig *app_config) {
                   GuiIconText(ICON_CROSS, ""))) {
         app_state->current_screen = CLOCK_SCREEN;
     }
+
+    // TODO: draw the rest of the screen
 }
