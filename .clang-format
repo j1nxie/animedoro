@@ -117,11 +117,11 @@ IncludeCategories:
     CaseSensitive: false
 IncludeIsMainRegex: "(Test)?$"
 IncludeIsMainSourceRegex: ""
-IndentAccessModifiers: false
-IndentCaseLabels: false
-IndentCaseBlocks: false
+IndentAccessModifiers: true
+IndentCaseLabels: true
+IndentCaseBlocks: true
 IndentGotoLabels: true
-IndentPPDirectives: None
+IndentPPDirectives: BeforeHash
 IndentExternBlock: AfterExternBlock
 IndentRequiresClause: true
 IndentWidth: 4
