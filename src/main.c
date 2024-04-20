@@ -15,8 +15,7 @@ int main(void) {
 
     SetTargetFPS(60);
 
-    AppConfig app_config = (AppConfig){25, 5, 15};
-    AppState app_state = initialize_app(&app_config);
+    app_state.minutes = app_config.pomodoro_length;
 
     while (!WindowShouldClose()) {
         BeginDrawing();

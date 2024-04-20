@@ -27,6 +27,9 @@ typedef struct {
         bool auto_start_timer;
 } AppConfig;
 
+extern AppConfig app_config;
+extern AppState app_state;
+
 AppState initialize_app(AppConfig *app_config);
 
 #endif
