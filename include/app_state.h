@@ -21,9 +21,10 @@ typedef struct {
 } AppState;
 
 typedef struct {
-        double pomodoro_length;
-        double short_break_length;
-        double long_break_length;
+        int pomodoro_length;
+        int short_break_length;
+        int long_break_length;
+        bool auto_start_timer;
 } AppConfig;
 
 AppState initialize_app(AppConfig *app_config);
