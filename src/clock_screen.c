@@ -38,7 +38,7 @@ void TickClock(AppState *app_state, AppConfig *app_config) {
                 app_state->minutes--;
             } else if (app_state->minutes == 0) {
                 NextState(app_state, app_config);
-                app_state->running = false;
+                app_state->running = app_config->auto_start_timer;
             }
         }
 
@@ -137,6 +137,6 @@ void ClockScreen(AppState *app_state, AppConfig *app_config) {
                               GetScreenHeight() / 2.0f + 45.0f - 16.0f, 32, 32},
                   GuiIconText(ICON_PLAYER_NEXT, ""))) {
         NextState(app_state, app_config);
-        app_state->running = false;
+        app_state->running = app_config->auto_start_timer;
     }
 }
