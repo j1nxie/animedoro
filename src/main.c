@@ -2,11 +2,23 @@
 #include "../include/app_state.h"
 #include "../include/clock_screen.h"
 #include "../include/settings_screen.h"
+
 #include <raylib.h>
+#include <stdio.h>
 
 int main(void) {
     const int screenWidth = 400;
     const int screenHeight = 225;
+
+    if (!FileExists("config.dat")) {
+        FILE *file = fopen("config.dat", "wb");
+        fwrite(&app_config, sizeof(AppConfig), 1, file);
+        fclose(file);
+    } else {
+        FILE *file = fopen("config.dat", "rb");
+        fread(&app_config, sizeof(AppConfig), 1, file);
+        fclose(file);
+    }
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "animedoro - v0.1.0");
@@ -31,6 +43,10 @@ int main(void) {
         }
         EndDrawing();
     }
+
+    FILE *file = fopen("config.dat", "wb+");
+    fwrite(&app_config, sizeof(AppConfig), 1, file);
+    fclose(file);
 
     CloseWindow();
 

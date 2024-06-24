@@ -1,7 +1,9 @@
 #include "../deps/raygui.h"
 #include "../include/app_state.h"
+
 #include <raylib.h>
 #include <stdint.h>
+#include <stdio.h>
 
 const int LINE_PADDING = 8;
 
@@ -30,6 +32,10 @@ void SettingsScreen(AppState *app_state, AppConfig *app_config) {
                     pomodoro_edit_value, 1, INT32_MAX, pomodoro_edit)) {
         app_config->pomodoro_length = *pomodoro_edit_value;
         pomodoro_edit = !pomodoro_edit;
+
+        FILE *file = fopen("config.dat", "wb+");
+        fwrite(&app_config, sizeof(AppConfig), 1, file);
+        fclose(file);
     }
 
     if (GuiValueBox((Rectangle){32, 32 * 2 + LINE_PADDING, 32, 32},
@@ -37,6 +43,10 @@ void SettingsScreen(AppState *app_state, AppConfig *app_config) {
                     short_break_edit)) {
         app_config->short_break_length = *short_break_edit_value;
         short_break_edit = !short_break_edit;
+
+        FILE *file = fopen("config.dat", "wb+");
+        fwrite(&app_config, sizeof(AppConfig), 1, file);
+        fclose(file);
     }
 
     if (GuiValueBox((Rectangle){32, 32 * 3 + 2 * LINE_PADDING, 32, 32},
@@ -44,6 +54,10 @@ void SettingsScreen(AppState *app_state, AppConfig *app_config) {
                     long_break_edit)) {
         app_config->long_break_length = *long_break_edit_value;
         long_break_edit = !long_break_edit;
+
+        FILE *file = fopen("config.dat", "wb+");
+        fwrite(&app_config, sizeof(AppConfig), 1, file);
+        fclose(file);
     }
 
     GuiCheckBox((Rectangle){32, 32 * 4 + 3 * LINE_PADDING, 32, 32},
